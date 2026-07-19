@@ -72,6 +72,5 @@ RAZORPAY_KEY_SECRET = "Dt1GVeHJFxb0AkH7sOkKAyK0"
 
 #test secret key=wYHG3rvKOdhWPbdSc9bKIQsX
 LOGIN_URL = '/login/'
-import os
 
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
