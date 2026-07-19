@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Cart | CuraFlow</title>
+    
+    <!-- Google Fonts & Smooth Animation Engine Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Colors */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.03);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.08);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+        }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; gap: 30px; }
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            color: var(--text-dark);
+            letter-spacing: -1.5px;
+            grid-column: 1 / -1;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        /* CART ITEMS GRID ARCHITECTURE */
+        .cart-items-wrapper {
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .cart-item {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(31, 78, 57, 0.05);
+            border-radius: var(--radius-large);
+            padding: 24px 35px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+            box-shadow: var(--card-shadow);
+        }
+
+        .cart-item:hover {
+            border-color: rgba(62, 146, 109, 0.2);
+            background: var(--cream-soft);
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* FLEX HOLDER FOR THE IMAGE THUMBNAIL AND LABELS */
+        .item-identity-block {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-thumb {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: var(--radius-medium);
+            border: 1px solid rgba(31, 78, 57, 0.08);
+            background: var(--sand-warm);
+        }
+
+        .item-details h3 {
+            margin: 0 0 6px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .item-price {
+            color: var(--earth-warm);
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* QUANTITY CONTAINER MODULATION */
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--sand-warm);
+            padding: 6px 18px;
+            border-radius: var(--radius-medium);
+            border: 1px solid rgba(31, 78, 57, 0.08);
+        }
+
+        .qty-btn {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 20px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .qty-btn:hover { 
+            background: rgba(62, 146, 109, 0.1); 
+            color: var(--sage-primary); 
+        }
+
+        .remove-btn {
+            text-decoration: none;
+            color: #a0b0ab;
+            font-size: 18px;
+            margin-left: 24px;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: transparent;
+        }
+
+        .remove-btn:hover { 
+            color: #c74d4d; 
+            background: #fff5f5;
+            transform: scale(1.1);
+        }
+
+        /* PREMIUM CHECKOUT SUMMARY CARD */
+        .summary-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-large);
+            padding: 40px 35px;
+            height: fit-content;
+            position: sticky;
+            top: 40px;
+            box-shadow: var(--card-shadow);
+            animation: fadeInRight 1s ease-out;
+            box-sizing: border-box;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            border-bottom: 1px solid rgba(31, 78, 57, 0.08);
+            padding-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(31, 78, 57, 0.08);
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .total-row span:last-child {
+            color: var(--earth-warm);
+        }
+
+        /* COZY EARTH ACCENT BUTTON */
+        .pay-btn {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            text-align: center;
+            padding: 16px;
+            border-radius: var(--radius-medium);
+            background: var(--sage-primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-sizing: border-box;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(31, 78, 57, 0.15);
+        }
+
+        .pay-btn:hover {
+            transform: translateY(-3px);
+            background: #153325;
+            box-shadow: 0 15px 35px rgba(31, 78, 57, 0.25);
+        }
+
+        /* EMPTY LEDGER BLOCK STATE */
+        .empty-cart {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-large);
+            border: 2px dashed rgba(31, 78, 57, 0.1);
+        }
+        
+        .empty-cart p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin: 0 0 16px 0;
+            font-weight: 500;
+        }
+        
+        .empty-cart a {
+            color: var(--earth-warm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+        }
+        
+        .empty-cart a:hover {
+            color: #be653a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Review Your Order</h2>
+
+    <div class="cart-items-wrapper">
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <!-- WRAPPED IN A FLEX CONTAINER TO ALIGN IMAGE NEXT TO TEXT -->
+            <div class="item-identity-block">
+                <img src="{{ item.medicine.image_url }}" alt="{{ item.medicine.name }}" class="cart-thumb">
+                <div class="item-details">
+                    <h3>{{ item.medicine.name }}</h3>
+                    <div class="item-price">₹{{ item.medicine.price }}</div>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center;">
+                <div class="controls">
+                    <a href="/decrease/{{ item.id }}/" class="qty-btn">−</a>
+                    <span style="font-weight: 700; width: 20px; text-align: center; color: var(--text-dark);">{{ item.quantity }}</span>
+                    <a href="/increase/{{ item.id }}/" class="qty-btn">+</a>
+                </div>
+
+                <a href="/remove/{{ item.id }}/" class="remove-btn">✕</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-cart animate__animated animate__fadeIn">
+            <p>Your shopping cart is currently empty.</p>
+            <a href="/">← Continue Browsing Pharmacy Hub</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if cart_items %}
+    <div class="summary-card">
+        <div class="summary-title">Order Summary</div>
+        <div class="summary-row">
+            <span>Items Subtotal</span>
+            <span>₹{{ total }}</span>
+        </div>
+        <div class="summary-row">
+            <span>Secure Processing</span>
+            <span style="color: var(--sage-light); font-weight: 700;">FREE</span>
+        </div>
+        
+        <div class="total-row">
+            <span>Total</span>
+            <span>₹{{ total }}</span>
+        </div>
+
+        <a href="/payment/" class="pay-btn">Proceed to Payment</a>
+        
+        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 20px; font-weight: 500;">
+            🔒 Secure transaction powered by Razorpay
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

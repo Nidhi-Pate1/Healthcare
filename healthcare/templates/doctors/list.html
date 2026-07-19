@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specialists | CuraFlow</title>
+    
+    <!-- Google Fonts & Smooth Animation Engine Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Colors */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.03);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.08);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 60px 40px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -1.5px;
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            color: var(--earth-warm);
+            background: var(--earth-light);
+            padding: 6px 16px;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        /* GRID LAYOUT */
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 32px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* PREMIUM GLASS DOCTOR CARD */
+        .doc-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-large);
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .doc-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(62, 146, 109, 0.2);
+            background: var(--cream-soft);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* Top Border Accent Line */
+        .doc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--sage-light), var(--earth-warm));
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+            transform-origin: left;
+        }
+
+        .doc-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Circular initial badge */
+        .avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            background: var(--earth-light);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            color: var(--earth-warm);
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(217, 119, 74, 0.1);
+            transition: var(--transition-smooth);
+            border: 2px solid rgba(217, 119, 74, 0.1);
+        }
+
+        .doc-card:hover .avatar-placeholder {
+            background: var(--earth-warm);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 0 8px 0;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .specialty {
+            color: var(--sage-light);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .experience {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        /* COZY EARTH ACTION BUTTON */
+        .btn-book {
+            display: block;
+            background: var(--sage-primary);
+            color: white;
+            padding: 14px;
+            text-decoration: none;
+            border-radius: var(--radius-medium);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 20px rgba(31, 78, 57, 0.12);
+        }
+
+        .btn-book:hover {
+            background: #153325;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(31, 78, 57, 0.22);
+        }
+
+        .empty-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-large);
+            border: 2px dashed rgba(31, 78, 57, 0.1);
+        }
+
+        .empty-msg p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 40px 20px; }
+            h2 { font-size: 28px; }
+            .doctor-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-section animate__animated animate__fadeInDown">
+        <div class="subtitle">Available Experts</div>
+        <h2>Find a Specialist</h2>
+    </div>
+
+    <div class="doctor-grid animate__animated animate__fadeInUp">
+        {% for doc in doctors %}
+            <div class="doc-card">
+                <div class="avatar-placeholder">
+                    {{ doc.user.first_name|slice:":1" }}
+                </div>
+                
+                <div class="specialty">{{ doc.specialty }}</div>
+                <h3>Dr. {{ doc.user.first_name }} {{ doc.user.last_name }}</h3>
+                <div class="experience">🏆 {{ doc.experience }} Years Experience</div>
+                
+                <a href="{% url 'book_appointment' doc.id %}" class="btn-book">
+                    Secure Booking
+                </a>
+            </div>
+        {% empty %}
+            <div class="empty-msg">
+                <p>No medical specialists are currently active in your region.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

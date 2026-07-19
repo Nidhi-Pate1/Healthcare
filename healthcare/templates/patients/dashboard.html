@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard | CuraFlow</title>
+    
+    <!-- Google Fonts, ChartJS Engine & Animation Engine Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Colors */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.03);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.08);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .dashboard-wrapper {
+            max-width: 1200px;
+            margin: auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* PREMIUM HEADER SECTOR */
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 24px 40px;
+            border-radius: var(--radius-large);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        h2.section-main-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0;
+            color: var(--text-dark);
+            letter-spacing: -1px;
+        }
+
+        .back-home-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            background: var(--sand-warm);
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(31, 78, 57, 0.05);
+        }
+
+        .back-home-link:hover {
+            color: var(--sage-primary);
+            background: var(--cream-soft);
+            transform: translateY(-2px);
+        }
+
+        .grid-layout-split {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .mgmt-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 30px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .mgmt-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--earth-warm);
+            border-radius: var(--radius-pill);
+        }
+
+        /* APPOINTMENT CARDS */
+        .appt-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(31, 78, 57, 0.05);
+            border-radius: var(--radius-large);
+            padding: 25px 35px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            box-shadow: var(--card-shadow);
+        }
+
+        .appt-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(62, 146, 109, 0.2);
+            background: var(--cream-soft);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .doctor-info h4 {
+            font-size: 20px;
+            margin: 0 0 6px 0;
+            color: var(--text-dark);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .specialty-tag {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--sage-light);
+            background: rgba(62, 146, 109, 0.08);
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .details {
+            font-size: 14px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 20px;
+            font-weight: 500;
+        }
+
+        .details span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* STATUS PILLS */
+        .status-pill {
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+        }
+
+        .status-pending, .status-PENDING { background: #fff8f0; color: var(--earth-warm); border: 1px solid rgba(217, 119, 74, 0.2); }
+        .status-confirmed, .status-CONFIRMED { background: #f0fdf4; color: var(--sage-light); border: 1px solid rgba(62, 146, 109, 0.2); }
+        .status-cancelled, .status-CANCELLED { background: #fff5f5; color: #c74d4d; border: 1px solid rgba(199, 77, 77, 0.2); }
+
+        /* HEALTH TOOLS & CALC CARDS */
+        .health-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--radius-medium);
+            padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(31, 78, 57, 0.05);
+            transition: var(--transition-smooth);
+            box-shadow: var(--card-shadow);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--hover-shadow);
+            background: var(--cream-soft);
+        }
+
+        .tool-card h3 {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .tool-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 0 0 16px 0;
+            font-weight: 500;
+        }
+
+        .tool-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            background: var(--earth-light);
+            color: var(--earth-warm);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: var(--transition-smooth);
+        }
+
+        .tool-btn:hover {
+            background: var(--earth-warm);
+            color: white;
+        }
+
+        /* SMART MONITOR LOGGER SYSTEM */
+        .tracker-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .card-tracker {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-large);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: var(--transition-smooth);
+        }
+
+        .card-tracker:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .card-tracker h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .input-group-inline {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--sand-warm);
+            border: 1px solid rgba(31, 78, 57, 0.08);
+            border-radius: var(--radius-medium);
+            color: var(--text-dark);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            outline: none;
+            box-sizing: border-box;
+            transition: var(--transition-smooth);
+        }
+
+        input:focus {
+            background: var(--cream-soft);
+            border-color: var(--sage-light);
+            box-shadow: 0 0 0 4px rgba(62, 146, 109, 0.1);
+        }
+
+        button.log-action-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-medium);
+            background: var(--sage-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px rgba(31, 78, 57, 0.1);
+        }
+
+        button.log-action-btn:hover {
+            background: #153325;
+            transform: translateY(-2px);
+        }
+
+        .result-box-output {
+            margin-top: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--sage-light);
+        }
+
+        .icon-art {
+            font-size: 32px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 240px !important;
+        }
+
+        /* EMPTY LIFELINE STATE */
+        .empty-state {
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-large);
+            border: 2px dashed rgba(31, 78, 57, 0.1);
+        }
+
+        .btn-find {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 30px;
+            background: var(--sage-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-medium);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-find:hover {
+            background: #153325;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 992px) {
+            .grid-layout-split { grid-template-columns: 1fr; gap: 30px; }
+            .header-flex { flex-direction: column; gap: 16px; text-align: center; }
+            .appt-card { flex-direction: column; text-align: center; gap: 16px; }
+            .details { justify-content: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+    <!-- DASHBOARD TOP HEADER -->
+    <header class="header-flex animate__animated animate__fadeInDown">
+        <div class="branding-title">
+            <h2 class="section-main-title">Smart Health Dashboard</h2>
+        </div>
+        <a href="/" class="back-home-link">← Return Home</a>
+    </header>
+
+    <div class="grid-layout-split">
+        <!-- LEFT SECTOR: CLINICAL CONSULTATIONS & ACCOUNT UTILITIES -->
+        <div class="left-split-panel animate__animated animate__fadeInLeft">
+            
+            <div class="mgmt-title">Wellness Utility Calculators</div>
+            <div class="health-tools">
+                <div class="tool-card">
+                    <div class="icon-art">⚖️</div>
+                    <h3>BMI Calculator</h3>
+                    <p>Track your health body mass margins.</p>
+                    <a href="{% url 'bmi_calculator' %}" class="tool-btn">Open Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="icon-art">🔥</div>
+                    <h3>Calorie Module</h3>
+                    <p>Calculate optimal daily metabolic limits.</p>
+                    <a href="{% url 'calorie_calculator' %}" class="tool-btn">Open Tool</a>
+                </div>
+            </div>
+
+            <div class="mgmt-title">My Scheduled Consultations</div>
+            
+            {% for appt in appointments %}
+                <div class="appt-card">
+                    <div class="doctor-info">
+                        <div class="specialty-tag">{{ appt.doctor.specialty }}</div>
+                        <h4>Dr. {{ appt.doctor.user.last_name }}</h4>
+                        <div class="details">
+                            <span>📅 {{ appt.date }}</span>
+                            <span>⏰ {{ appt.time }}</span>
+                            <span>🏥 {{ appt.appointment_type|title }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="status-zone">
+                        <span class="status-pill status-{{ appt.status }}">
+                            {{ appt.status|upper }}
+                        </span>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-state">
+                    <p style="color: var(--text-muted); font-size: 16px; margin: 0 0 8px 0; font-weight: 500;">Your active consultation history list is currently clear.</p>
+                    <p style="color: var(--text-dark); font-size: 14px; margin: 0; font-weight: 600;">Looking to review symptoms with an expert panel provider?</p>
+                    <a href="{% url 'doctor_list' %}" class="btn-find">Find a Specialist</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- RIGHT SECTOR: SMART LOGGERS & METRIC ANALYTICS PANELS -->
+        <div class="right-split-panel tracker-container animate__animated animate__fadeInRight">
+            <div class="mgmt-title">Active Biometric Trackers</div>
+
+            <!-- Steps Logger Box -->
+            <div class="card-tracker">
+                <h2>🚶 Daily Steps Log</h2>
+                <div class="input-group-inline">
+                    <input type="number" id="steps" placeholder="Enter logged counts today">
+                </div>
+                <button class="log-action-btn" onclick="saveSteps()">Save Step Entry</button>
+                <div class="result-box-output" id="stepsResult">Today's Total: 0 steps</div>
+            </div>
+
+            <!-- Heart Analyzer Box -->
+            <div class="card-tracker">
+                <h2>❤️ Heart Rate Sync</h2>
+                <div class="input-group-inline">
+                    <input type="number" id="heartRate" placeholder="Enter recorded BPM rate">
+                </div>
+                <button class="log-action-btn" onclick="checkHeartRate()">Analyze Biometrics</button>
+                <div class="result-box-output" id="heartResult"></div>
+            </div>
+
+            <!-- BP Analysis Box -->
+            <div class="card-tracker">
+                <h2>🩸 Blood Pressure Metrics</h2>
+                <div class="input-group-inline">
+                    <input type="number" id="systolic" placeholder="Systolic (Top)">
+                    <input type="number" id="diastolic" placeholder="Diastolic (Bottom)">
+                </div>
+                <button class="log-action-btn" onclick="checkBP()">Run BP Scan</button>
+                <div class="result-box-output" id="bpResult"></div>
+            </div>
+
+            <!-- Chart Analytics Engine -->
+            <div class="card-tracker">
+                <h2>📊 Step History Analytics</h2>
+                <canvas id="healthChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /* Live Browser LocalStorage Steps Syncer */
+    function saveSteps(){
+        let steps = document.getElementById("steps").value;
+        if (!steps) return;
+        localStorage.setItem("dailySteps", steps);
+        document.getElementById("stepsResult").innerHTML = "Today's Total: " + steps + " steps";
+    }
+
+    window.onload = function(){
+        let saved = localStorage.getItem("dailySteps");
+        if(saved){
+            document.getElementById("stepsResult").innerHTML = "Today's Total: " + saved + " steps";
+        }
+    };
+
+    /* Dynamic Heart Rate Analyzer Module */
+    function checkHeartRate(){
+        let bpm = parseInt(document.getElementById("heartRate").value);
+        if(!bpm) return;
+        let status = "";
+        
+        if(bpm < 60) status = "⚠ Low Biometric Heart Rate Alert";
+        else if(bpm <= 100) status = "✅ Normal Restful Heart Rate Profile";
+        else status = "🚨 High Heart Rate Warning Threshold Checked";
+
+        document.getElementById("heartResult").innerHTML = status + " (" + bpm + " BPM)";
+    }
+
+    /* Dynamic Blood Pressure Logger Module */
+    function checkBP(){
+        let sys = parseInt(document.getElementById("systolic").value);
+        let dia = parseInt(document.getElementById("diastolic").value);
+        if(!sys || !dia) return;
+        let status = "";
+
+        if(sys < 120 && dia < 80) status = "✅ Healthy Optimal BP Level";
+        else if(sys < 140) status = "⚠ Elevated BP Conditions Detected";
+        else status = "🚨 High BP Clinical Status Verified";
+
+        document.getElementById("bpResult").innerHTML = status;
+    }
+
+    /* Cozy-Tone Line Chart Engine Config */
+    const ctx = document.getElementById('healthChart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Logged Daily Steps',
+                data: [3500, 4500, 7000, 8500, 9000, 7500, 10000],
+                borderWidth: 3,
+                borderColor: '#3e926d',
+                backgroundColor: 'rgba(62, 146, 109, 0.05)',
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#d9774a'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: '#12241f', font: { weight: '600', family: 'Plus Jakarta Sans' } }
+                }
+            },
+            scales: {
+                x: { ticks: { color: '#4e635c' }, grid: { display: false } },
+                y: { ticks: { color: '#4e635c' }, grid: { color: 'rgba(0,0,0,0.03)' } }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

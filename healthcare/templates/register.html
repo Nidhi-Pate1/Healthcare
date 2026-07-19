@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join CuraFlow | Secure Registration</title>
+    
+    <!-- Google Fonts & Smooth Animation Engine Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Colors */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.03);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.08);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 60px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient soft backdrop nodes */
+        .glow-orb {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(130px);
+            z-index: -1;
+            opacity: 0.12;
+            animation: pulseAmbient 6s infinite alternate ease-in-out;
+        }
+        .orb-1 { background: var(--sage-light); top: -10%; right: -5%; }
+        .orb-2 { background: var(--earth-warm); bottom: -10%; left: -5%; animation-delay: 3s; }
+
+        @keyframes pulseAmbient {
+            from { transform: scale(1); opacity: 0.08; }
+            to { transform: scale(1.15); opacity: 0.16; }
+        }
+
+        /* THE REGISTRATION BOX WITH DIAGONAL SLICE REVEAL */
+        .auth-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-large);
+            padding: 50px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            
+            /* High-end Asymmetric Diagonal Slice Entrance Animation */
+            animation: diagonalSliceReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: clip-path;
+        }
+
+        @keyframes diagonalSliceReveal {
+            0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); opacity: 0.3; }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+        }
+
+        /* Top Border Decorative Accent Line */
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--sage-light), var(--earth-warm));
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            color: var(--text-dark);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--earth-warm);
+            background: var(--earth-light);
+            padding: 4px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+        }
+
+        /* ROLE SELECTOR */
+        .role-selection-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .role-card {
+            background: var(--sand-warm);
+            border: 2px solid rgba(31, 78, 57, 0.06);
+            border-radius: var(--radius-medium);
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: block;
+        }
+
+        .role-card:hover {
+            border-color: rgba(62, 146, 109, 0.2);
+            background: var(--cream-soft);
+        }
+
+        .role-card input[type="radio"] { display: none; }
+
+        .role-card.active {
+            background: var(--cream-soft);
+            border-color: var(--sage-primary);
+            box-shadow: 0 8px 20px rgba(31, 78, 57, 0.06);
+        }
+
+        .role-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+        .role-title { font-weight: 800; color: var(--text-dark); font-size: 15px; display: block; }
+        .role-desc { font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px; font-weight: 500; }
+
+        /* FORM GROUPS */
+        .form-group { margin-bottom: 24px; }
+        
+        label.field-label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-weight: 700;
+            padding-left: 4px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--sand-warm) !important;
+            border: 1px solid rgba(31, 78, 57, 0.08) !important;
+            border-radius: var(--radius-medium) !important;
+            color: var(--text-dark) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            outline: none;
+            transition: var(--transition-smooth);
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            background: var(--cream-soft) !important;
+            border-color: var(--sage-light) !important;
+            box-shadow: 0 0 0 4px rgba(62, 146, 109, 0.1) !important;
+        }
+
+        .error-msg { color: #c74d4d; font-size: 12px; margin-top: 6px; font-weight: 600; }
+
+        /* REGISTER SUBMIT BUTTON */
+        button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: var(--radius-medium);
+            background: var(--sage-primary);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(31, 78, 57, 0.15);
+            transition: var(--transition-smooth);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            background: #153325;
+            box-shadow: 0 15px 35px rgba(31, 78, 57, 0.25);
+        }
+
+        .footer-text { text-align: center; margin-top: 30px; font-size: 14px; color: var(--text-muted); font-weight: 500; }
+        .footer-text a { color: var(--earth-warm); text-decoration: none; font-weight: 700; transition: var(--transition-smooth); }
+        .footer-text a:hover { color: #be653a; }
+    </style>
+</head>
+<body>
+
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="auth-container">
+        <h2>Registration</h2>
+        <p class="subtitle">Secure Medical Network</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label class="field-label" style="margin-bottom: 12px;">Select Your Role</label>
+            <div class="role-selection-wrapper">
+                <label class="role-card" id="patient-card">
+                    <input type="radio" name="role" value="patient" onclick="updateRoleUI('patient')" required>
+                    <span class="role-icon">🏥</span>
+                    <span class="role-title">Patient</span>
+                    <span class="role-desc">Consult &amp; Pharmacy</span>
+                </label>
+
+                <label class="role-card" id="doctor-card">
+                    <input type="radio" name="role" value="doctor" onclick="updateRoleUI('doctor')">
+                    <span class="role-icon">🩺</span>
+                    <span class="role-title">Doctor</span>
+                    <span class="role-desc">Clinical Practice</span>
+                </label>
+            </div>
+
+            {% for field in form %}
+                {% if field.name != "role" %} 
+                <div class="form-group">
+                    <label class="field-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="error-msg">⚠️ {{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+            
+            <button type="submit">Create Account</button>
+        </form>
+        
+        <p class="footer-text">
+            Already Registered? <a href="/login/">Login here</a>
+        </p>
+    </div>
+
+    <script>
+        function updateRoleUI(role) {
+            document.getElementById('patient-card').classList.remove('active');
+            document.getElementById('doctor-card').classList.remove('active');
+            document.getElementById(role + '-card').classList.add('active');
+        }
+    </script>
+</body>
+</html>

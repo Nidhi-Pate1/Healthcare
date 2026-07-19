@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join CuraFlow | Secure Entry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Colors */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.03);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.08);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient soft backdrop nodes */
+        .glow-orb {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(130px);
+            z-index: -1;
+            opacity: 0.12;
+            animation: pulseAmbient 6s infinite alternate ease-in-out;
+        }
+        .orb-1 { background: var(--sage-light); top: -10%; left: -5%; }
+        .orb-2 { background: var(--earth-warm); bottom: -10%; right: -5%; animation-delay: 3s; }
+
+        @keyframes pulseAmbient {
+            from { transform: scale(1); opacity: 0.08; }
+            to { transform: scale(1.15); opacity: 0.16; }
+        }
+
+        /* THE SIGNUP BOX WITH DIAGONAL SLICE REVEAL */
+        .signup-box {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 55px 45px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: var(--radius-large);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            
+            /* High-end Asymmetric Diagonal Slice Entrance Animation */
+            animation: diagonalSliceReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: clip-path;
+        }
+
+        @keyframes diagonalSliceReveal {
+            0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); opacity: 0.3; }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+        }
+
+        /* Top Border Decorative Accent Line */
+        .signup-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--sage-light), var(--earth-warm));
+        }
+
+        h2 {
+            color: var(--text-dark);
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, var(--text-dark), var(--sage-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--earth-warm);
+            background: var(--earth-light);
+            padding: 4px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 35px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            padding-left: 4px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 18px;
+            background: var(--sand-warm);
+            border: 1px solid rgba(31, 78, 57, 0.08);
+            border-radius: var(--radius-medium);
+            outline: none;
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            background: var(--cream-soft);
+            border-color: var(--sage-light);
+            box-shadow: 0 0 0 4px rgba(62, 146, 109, 0.1);
+        }
+
+        /* COZY PRIMARY CORE BUTTON */
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: var(--radius-medium);
+            background: var(--sage-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(31, 78, 57, 0.15);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            background: #153325;
+            box-shadow: 0 15px 35px rgba(31, 78, 57, 0.25);
+        }
+
+        a {
+            color: var(--text-muted);
+            display: block;
+            margin-top: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        a:hover {
+            color: var(--text-dark);
+        }
+
+        /* Accent text link highlighting */
+        span.link-accent {
+            color: var(--earth-warm);
+            font-weight: 700;
+        }
+        
+        a:hover span.link-accent {
+            color: #be653a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="signup-box">
+        <h2>Secure Signup</h2>
+        <p class="subtitle">Join the healthcare network</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Choose a unique ID" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Create a strong password" required>
+            </div>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <a href="/login/">Already have an account? <span class="link-accent">Login</span></a>
+    </div>
+
+</body>
+</html>

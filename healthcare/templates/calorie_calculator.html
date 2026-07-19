@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator | CuraFlow</title>
+    
+    <!-- Google Fonts & Smooth Animation Engine Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Color Variables */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.04);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.09);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* PREMIUM GLASS CONTAINER WITH DIAGONAL SLICE REVEAL */
+        .box {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-large);
+            padding: 45px 35px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            position: relative;
+            box-sizing: border-box;
+            
+            /* High-end Diagonal Slice Entrance Animation matching the framework */
+            animation: diagonalSliceReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: clip-path;
+        }
+
+        @keyframes diagonalSliceReveal {
+            0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); opacity: 0.3; }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+        }
+
+        /* Top Accent Decoration Border */
+        .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--sage-light), var(--earth-warm));
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -1px;
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            display: block;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--sand-warm);
+            border: 1px solid rgba(31, 78, 57, 0.08);
+            border-radius: var(--radius-medium);
+            color: var(--text-dark);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 500;
+            box-sizing: border-box;
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            background: var(--cream-soft);
+            border-color: var(--sage-light);
+            box-shadow: 0 0 0 4px rgba(62, 146, 109, 0.1);
+        }
+
+        /* Sage Green Theme Action Button */
+        button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 12px;
+            border: none;
+            border-radius: var(--radius-medium);
+            background: var(--sage-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(31, 78, 57, 0.12);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            background: #153325;
+            box-shadow: 0 15px 35px rgba(31, 78, 57, 0.22);
+        }
+
+        /* COZY OUTPUT DISPLAY SECTION */
+        .result {
+            margin-top: 30px;
+            padding: 24px;
+            border-radius: var(--radius-medium);
+            background: var(--earth-light);
+            border: 1px solid rgba(217, 119, 74, 0.15);
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .result-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--earth-warm);
+            letter-spacing: -1px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            text-align: center;
+            width: 100%;
+        }
+
+        .back-link:hover {
+            color: var(--sage-primary);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>🔥 Calorie Calculator</h1>
+    <span class="subtitle">Calculate daily metabolic calorie thresholds</span>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Body Weight</label>
+            <input type="number" name="weight" placeholder="Weight (kg)" required>
+        </div>
+
+        <div class="form-group">
+            <label>Body Height</label>
+            <input type="number" name="height" placeholder="Height (cm)" required>
+        </div>
+
+        <div class="form-group">
+            <label>Age Profile</label>
+            <input type="number" name="age" placeholder="Age" required>
+        </div>
+
+        <div class="form-group">
+            <label>Biological Gender</label>
+            <select name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <button type="submit">Calculate Calories</button>
+    </form>
+
+    {% if calories %}
+    <div class="result">
+        <div class="result-label">Daily Energy Needed:</div>
+        <div class="result-value">{{ calories }} kcal</div>
+    </div>
+    {% endif %}
+
+    <a href="{% url 'patient_dashboard' %}" class="back-link">← Return to Dashboard</a>
+</div>
+
+</body>
+</html>

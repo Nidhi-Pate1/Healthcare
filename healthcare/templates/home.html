@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuraFlow | Digital Healthcare Portal</title>
+
+    <!-- Google Fonts & Smooth Animation Engine Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Colors */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.03);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.08);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* PREMIUM NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 80px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--sage-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            width: 0;
+            height: 2.5px;
+            background: var(--earth-warm);
+            transition: var(--transition-smooth);
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--sage-primary);
+        }
+
+        .logout-link {
+            color: #c74d4d !important;
+            background: #fff0f0;
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+        }
+        
+        .logout-link:hover {
+            background: #ffe1e1 !important;
+            transform: translateY(-2px);
+        }
+
+        /* DIGITAL HEALTH HERO AREA WITH CUT REVEAL */
+        .hero-wrapper {
+            padding: 100px 80px;
+            max-width: 1300px;
+            margin: 40px auto;
+            position: relative;
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            
+            background: 
+                linear-gradient(135deg, rgba(244, 247, 245, 0.92) 20%, rgba(255, 255, 255, 0.8) 100%),
+                url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 30px 60px rgba(31, 78, 57, 0.04);
+            
+            animation: diagonalSliceReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: clip-path;
+        }
+
+        @keyframes diagonalSliceReveal {
+            0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); opacity: 0.3; }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            flex: 1.4;
+        }
+
+        .top-tag {
+            color: var(--earth-warm);
+            background: var(--earth-light);
+            padding: 6px 16px;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.15;
+            margin: 0;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -2px;
+        }
+
+        .hero-text h1 span {
+            color: var(--sage-light);
+            background: linear-gradient(to right, var(--sage-primary), var(--earth-warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: #2b3d36;
+            font-size: 1.2rem;
+            margin-top: 24px;
+            line-height: 1.7;
+            max-width: 580px;
+            font-weight: 500;
+        }
+
+        /* HERO ACTION SIDE CARD */
+        .hero-action-card {
+            flex: 0.9;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-large);
+            padding: 16px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .hero-action-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .glass-inner {
+            background: var(--sand-warm);
+            border-radius: calc(var(--radius-large) - 8px);
+            padding: 50px 40px;
+            text-align: center;
+            border: 1px solid rgba(31, 78, 57, 0.04);
+        }
+
+        .hero-action-card label {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .hero-action-card h2 {
+            font-size: 4rem;
+            margin: 10px 0;
+            color: var(--sage-primary);
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .hero-action-card p {
+            color: var(--text-muted);
+            margin: 0 0 32px 0;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* BUTTON ARCS */
+        .btn-neo {
+            background: var(--sage-primary);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--radius-medium);
+            text-decoration: none;
+            font-weight: 700;
+            display: block;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(31, 78, 57, 0.15);
+        }
+
+        .btn-neo:hover {
+            transform: translateY(-3px);
+            background: #153325;
+            box-shadow: 0 15px 35px rgba(31, 78, 57, 0.25);
+        }
+
+        .btn-outline-neo {
+            border: 2px solid var(--sage-light);
+            color: var(--sage-primary);
+            background: transparent;
+            padding: 14px 30px;
+            border-radius: var(--radius-medium);
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            flex: 1;
+            box-sizing: border-box;
+        }
+
+        .btn-outline-neo:hover {
+            background: rgba(62, 146, 109, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .dual-btns {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .hospital-btn {
+            background: var(--cream-soft);
+            color: var(--sage-primary);
+            border: 1px solid rgba(62, 146, 109, 0.2);
+            padding: 14px 28px;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hospital-btn:hover {
+            transform: translateY(-4px);
+            background: var(--sage-primary);
+            color: white;
+        }
+
+        /* TRUST PROMISES BANNER */
+        .trust-banner {
+            background: var(--cream-soft);
+            border-top: 1px solid #edf2f0;
+            border-bottom: 1px solid #edf2f0;
+            padding: 40px 80px;
+            margin: 40px 0 60px 0;
+        }
+
+        .trust-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .trust-item h4 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: var(--sage-primary);
+            font-weight: 700;
+        }
+
+        .trust-item p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* PHARMACY HUB STYLING */
+        .section-header-box {
+            text-align: center;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: var(--text-dark);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 32px;
+            padding: 40px 80px 120px 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--cream-soft);
+            border: 1px solid rgba(31, 78, 57, 0.05);
+            border-radius: var(--radius-large);
+            padding: 32px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--sage-light), var(--earth-warm));
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+            transform-origin: left;
+        }
+
+        .card:hover::before { transform: scaleX(1); }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(62, 146, 109, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover; /* Changed to cover to cleanly handle diverse external web thumbnails */
+            border-radius: var(--radius-medium);
+            margin-bottom: 24px;
+            transition: var(--transition-smooth);
+        }
+
+        .card:hover img { transform: scale(1.05); }
+
+        .price {
+            color: var(--earth-warm);
+            font-size: 22px;
+            font-weight: 800;
+            margin: 12px 0 20px 0;
+        }
+
+        .btn-primary {
+            padding: 14px 28px;
+            border-radius: var(--radius-medium);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            background: var(--earth-light);
+            color: var(--earth-warm);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+        }
+
+        .card .btn-primary {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .card .btn-primary:hover {
+            background: var(--earth-warm);
+            color: white;
+            box-shadow: 0 10px 20px rgba(217, 119, 74, 0.2);
+        }
+
+        /* CHATBOT SYSTEM */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--sage-primary);
+            color: white;
+            font-size: 26px;
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(31, 78, 57, 0.25);
+            z-index: 2000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .chatbot-toggle:hover { 
+            transform: scale(1.1) translateY(-4px);
+            background: #153325;
+        }
+
+        .chatbot-container {
+            position: fixed;
+            bottom: 120px;
+            right: 40px;
+            width: 400px;
+            height: 560px;
+            background: var(--cream-soft);
+            border: 1px solid rgba(31, 78, 57, 0.08);
+            border-radius: var(--radius-large);
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 30px 70px rgba(31, 78, 57, 0.12);
+            overflow: hidden;
+            z-index: 2000;
+        }
+
+        .chat-header {
+            background: var(--sage-primary);
+            padding: 24px;
+            color: white;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 17px;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #fafcfa;
+        }
+
+        .chat-footer {
+            display: flex;
+            padding: 18px 24px;
+            background: var(--cream-soft);
+            border-top: 1px solid #edf3f0;
+            align-items: center;
+        }
+
+        .chat-footer input {
+            flex: 1;
+            background: #f1f6f3;
+            border: 1px solid transparent;
+            border-radius: var(--radius-medium);
+            padding: 14px 18px;
+            outline: none;
+            margin-right: 12px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .chat-footer input:focus {
+            background: var(--cream-soft);
+            border-color: var(--sage-light);
+        }
+
+        .chat-footer button {
+            background: var(--sage-primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--radius-medium);
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .user-msg {
+            background: var(--sage-primary);
+            color: white;
+            padding: 14px 18px;
+            border-radius: var(--radius-medium) var(--radius-medium) 4px var(--radius-medium);
+            align-self: flex-end;
+            max-width: 80%;
+            font-size: 14px;
+            animation: 0.4s slideUp;
+        }
+
+        .bot-msg {
+            background: var(--cream-soft);
+            color: var(--text-dark);
+            padding: 14px 18px;
+            border-radius: var(--radius-medium) var(--radius-medium) var(--radius-medium) 4px;
+            align-self: flex-start;
+            max-width: 80%;
+            font-size: 14px;
+            border: 1px solid #edf4f0;
+            line-height: 1.6;
+            animation: 0.4s slideUp;
+        }
+
+        .pulse-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--sage-light);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            animation: pulse-ring 2.5s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(68, 160, 119, 0.5); }
+            70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(68, 160, 119, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(68, 160, 119, 0); }
+        }
+
+        /* MARKET FOOTER STYLING */
+        .footer {
+            background: var(--sage-primary);
+            color: #d1e2da;
+            padding: 80px 80px 40px 80px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 60px;
+        }
+
+        .footer-brand h3 {
+            color: var(--cream-soft);
+            font-size: 24px;
+            margin: 0 0 16px 0;
+            font-weight: 800;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a3c4b5;
+        }
+
+        .footer-column h5 {
+            color: var(--cream-soft);
+            font-size: 16px;
+            margin: 0 0 24px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li { margin-bottom: 14px; }
+
+        .footer-column ul li a {
+            color: #a3c4b5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--sage-accent);
+            padding-left: 4px;
+        }
+
+        .footer-contact p {
+            font-size: 14px;
+            margin: 0 0 12px 0;
+            color: #a3c4b5;
+        }
+
+        .footer-contact span {
+            color: var(--cream-soft);
+            font-weight: 600;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #82a897;
+        }
+
+        .footer-legal-links a {
+            color: #82a897;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .footer-legal-links a:hover { color: var(--cream-soft); }
+
+        @keyframes slideUp {
+            from { transform: translateY(15px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 992px) {
+            .navbar { padding: 20px 40px; }
+            .hero-wrapper { padding: 40px 24px; margin: 20px; }
+            .hero-content { flex-direction: column; text-align: center; gap: 40px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { margin: 24px auto; }
+            .top-actions { display: flex; justify-content: center; }
+            .trust-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .footer-legal-links a { margin: 0 10px; }
+            .chatbot-container { width: 90%; right: 5%; bottom: 100px; }
+            .container { padding: 30px 40px 80px 40px; }
+            .footer { padding: 60px 40px 30px 40px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">🌿 CuraFlow</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        {% if user.is_authenticated %}
+            {% if role == 'doctor' %}
+                <a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a>
+            {% else %}
+                <a href="{% url 'patient_dashboard' %}">My Appointments</a>
+                <a href="{% url 'patient_profile' %}" style="color: var(--sage-primary); font-weight: 700;">My Profile</a>
+            {% endif %}
+            <a href="/cart/">Cart</a>
+            <a href="/orders/">Orders</a>
+            <a href="/logout/" class="logout-link">Logout</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="btn-primary" style="padding: 10px 24px; border-radius: 12px; background: var(--sage-primary); color: white;">Sign In</a>
+        {% endif %}
+    </div>
+</nav>
+
+<section class="hero-wrapper">
+    <div class="hero-content">
+        <div class="hero-text">
+            {% if user.is_authenticated %}
+                <span class="top-tag">Dashboard Overview</span>
+                <h1>Your Digital Health Portal, <span>{{ user.first_name|default:user.username }}</span></h1>
+                <p>Welcome back! Seamlessly manage your medical profiles below. Track upcoming appointments, review diagnostic history, or connect directly with our AI Health Assistant.</p>
+            {% else %}
+                <span class="top-tag">Integrated Telehealth Platform</span>
+                <h1>Simple Care. <br><span>Breathe Easy.</span></h1>
+                <p>Connecting you with verified medical professionals and delivering daily pharmacy essentials securely straight to your door.</p>
+            {% endif %}
+            
+            <div class="top-actions">
+                <button onclick="openNearbyHospitals()" class="hospital-btn">
+                    📍 Locate Nearby Hospitals
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-action-card animate__animated animate__fadeInRight">
+            <div class="glass-inner">
+                {% if user.is_authenticated %}
+                    {% if role == 'doctor' %}
+                        <div class="pulse-indicator"></div>
+                        <label>Doctor Dashboard</label>
+                        <h2>{{ pending_count }}</h2>
+                        <p>Pending Appointments</p>
+                        <a href="{% url 'doctor_dashboard' %}" class="btn-neo">Open Dashboard</a>
+                    {% else %}
+                        <label>Patient Profile</label>
+                        <h2>Active</h2>
+                        <p>Verified Health Account</p>
+                        <div class="dual-btns">
+                            <a href="{% url 'doctor_list' %}" class="btn-neo">Find Doctors</a>
+                            <a href="{% url 'patient_dashboard' %}" class="btn-outline-neo">My Appointments</a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <label>Registration Portal</label>
+                    <h2>Secure</h2>
+                    <p>Protected Health Accounts</p>
+                    <a href="{% url 'register' %}" class="btn-neo">Create Secure Account</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TRUST SERVICES BANNER -->
+<section class="trust-banner">
+    <div class="trust-grid">
+        <div class="trust-item">
+            <h4>✓ Certified Clinicians</h4>
+            <p>Every medical practitioner on our panel undergoes rigorous board-certification verification processes.</p>
+        </div>
+        <div class="trust-item">
+            <h4>🛡 Secured Privacy</h4>
+            <p>Your records, consult histories, and uploads are stored under compliant end-to-end data safety protocols.</p>
+        </div>
+        <div class="trust-item">
+            <h4>📦 Pharmacy Fulfillment</h4>
+            <p>Prescribed essentials packed under clinical conditions and shipped with active transit tracking modules.</p>
+        </div>
+    </div>
+</section>
+
+<div class="section-header-box animate__animated animate__fadeInUp">
+    <h2 class="section-title">Explore Pharmacy Hub</h2>
+    <p class="section-subtitle">Pure wellness supplements, medical equipment, and clinical prescription items dispatched directly home.</p>
+</div>
+
+<div class="container animate__animated animate__fadeInUp">
+    {% for med in medicines %}
+    <div class="card">
+        <!-- UPDATED FROM OLD LOCAL FILE ATTACHMENTS TO DYNAMIC image_url PATHS -->
+        {% if med.image_url %}
+            <img src="{{ med.image_url }}" alt="{{ med.name }}">
+        {% else %}
+            <div style="height: 160px; display: flex; align-items: center; justify-content: center; background: #f2f7f4; border-radius: var(--radius-medium); margin-bottom: 24px;">
+                <span style="font-size: 45px;">🏥</span>
+            </div>
+        {% endif %}
+        <h3 style="margin: 0; font-size: 19px; color: var(--text-dark); font-weight: 700;">{{ med.name }}</h3>
+        <p class="price">₹{{ med.price }}</p>
+        <a href="/add-to-cart/{{ med.id }}/" class="btn-primary">Add to Cart</a>
+    </div>
+    {% empty %}
+        <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-weight: 500;">No medical items currently available in inventory.</p>
+    {% endfor %}
+</div>
+
+<div class="chatbot-toggle animate__animated animate__bounceIn" onclick="toggleChat()">💬</div>
+
+<div class="chatbot-container" id="chatbox">
+    <div class="chat-header">
+        🩺 AI Health Assistant
+        <span style="cursor:pointer; font-size: 20px;" onclick="toggleChat()">×</span>
+    </div>
+
+    <div class="chat-body" id="chat-body">
+        <div class="bot-msg">
+            Hello there. I am your integrated assistant. 👋<br>
+            Feel free to inquire about any general health information or track our portal navigation rules for relief.
+        </div>
+    </div>
+
+    <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Ask a health question...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- COMPREHENSIVE CORPORATE FOOTER -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>🌿 CuraFlow</h3>
+            <p>Building a compassionate digital ecosystem that prioritizes clinical safety, low friction access pipelines, and genuine holistic wellness support.</p>
+        </div>
+        <div class="footer-column">
+            <h5>Services Matrix</h5>
+            <ul>
+                <li><a href="{% url 'doctor_list' %}">Consult Virtual Physicians</a></li>
+                <li><a href="/">Order Pharmacy Essentials</a></li>
+                <li><a href="/cart/">Active Shopping Cart</a></li>
+                <li><a href="/orders/">Track Open Shipments</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h5>Patient Support</h5>
+            <ul>
+                <li><a href="#">Help Center &amp; FAQs</a></li>
+                <li><a href="#">Telehealth Guide</a></li>
+                <li><a href="#">Insurance Partners</a></li>
+                <li><a href="#">Emergency Contact Lines</a></li>
+            </ul>
+        </div>
+        <div class="footer-column footer-contact">
+            <h5>Contact Us</h5>
+            <p><span>Email:</span> support@curaflow.com</p>
+            <p><span>Toll Free Line:</span> +91 1800-420-FLOW</p>
+            <p><span>Corporate Hub:</span> Surat, Gujarat, India</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CuraFlow Digital Health Network. All rights reserved.</p>
+        <div class="footer-legal-links">
+            <a href="#">Privacy Mandate</a>
+            <a href="#">Terms of Care</a>
+            <a href="#">NDA Compliance</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleChat() {
+        let box = document.getElementById("chatbox");
+        if(box.style.display === "flex") {
+            box.classList.remove("animate__animated", "animate__slideInUp");
+            box.style.display = "none";
+        } else {
+            box.style.display = "flex";
+            box.classList.add("animate__animated", "animate__slideInUp");
+        }
+    }
+    
+    function sendMessage() {
+        let input = document.getElementById("chat-input");
+        let message = input.value.trim();
+    
+        if (!message) return;
+    
+        let chatBody = document.getElementById("chat-body");
+    
+        let userMsg = document.createElement("div");
+        userMsg.className = "user-msg";
+        userMsg.innerText = message;
+        chatBody.appendChild(userMsg);
+    
+        input.value = "";
+        chatBody.scrollTop = chatBody.scrollHeight;
+    
+        fetch("/chatbot/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: message })
+        })
+        .then(res => res.json())
+        .then(data => {
+            let botMsg = document.createElement("div");
+            botMsg.className = "bot-msg";
+            botMsg.innerText = data.response;
+            chatBody.appendChild(botMsg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        })
+        .catch(() => {
+            let botMsg = document.createElement("div");
+            botMsg.className = "bot-msg";
+            botMsg.innerText = "Connecting you with the system nodes...";
+            chatBody.appendChild(botMsg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        });
+    }
+   
+    function openNearbyHospitals() {
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser.");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                window.open(`https://www.google.com/maps/search/hospitals/@${lat},${lng},15z`, "_blank");
+            },
+            function(error) {
+                alert("Location access was not enabled. Opening default search map.");
+                window.open("https://www.google.com/maps/search/nearby+hospitals", "_blank");
+            }
+        );
+    }
+</script>
+    
+</body>
+</html>

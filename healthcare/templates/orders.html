@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders | CuraFlow</title>
+    
+    <!-- Google Fonts & Smooth Animation Engine Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            /* Cozy & Soft Healthcare Colors */
+            --bg-calm: #f4f7f5;
+            --text-dark: #12241f;
+            --text-muted: #4e635c;
+            
+            /* Main Hues */
+            --sage-primary: #1f4e39;
+            --sage-light: #3e926d;
+            --sage-accent: #7ed9ae;
+            
+            /* Cozy Earth Accents */
+            --earth-warm: #d9774a;
+            --earth-light: #fdf3ee;
+            --cream-soft: #ffffff;
+            --sand-warm: #faf9f6;
+            
+            /* Modern Structural Properties */
+            --radius-large: 28px;
+            --radius-medium: 18px;
+            --radius-pill: 60px;
+            --card-shadow: 0 20px 40px rgba(31, 78, 57, 0.03);
+            --hover-shadow: 0 35px 65px rgba(31, 78, 57, 0.08);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #eaf2ee 0%, var(--bg-calm) 50%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 0 35px 0;
+            color: var(--text-dark);
+            letter-spacing: -1.5px;
+            animation: fadeInDown 0.8s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--earth-warm);
+            border-radius: var(--radius-pill);
+        }
+
+        /* ORDER ITEMS STACK ARCHITECTURE */
+        .orders-wrapper {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .order {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(31, 78, 57, 0.05);
+            border-radius: var(--radius-large);
+            padding: 24px 35px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order:hover {
+            border-color: rgba(62, 146, 109, 0.2);
+            background: var(--cream-soft);
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* Top Border Decorative Accent Line */
+        .order::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--sage-light), var(--earth-warm));
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+            transform-origin: left;
+        }
+
+        .order:hover::before {
+            transform: scaleX(1);
+        }
+
+        .order-details h3 {
+            margin: 0 0 6px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .order-details p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* STATUS BADGE MODULATION */
+        .status-pill {
+            padding: 6px 16px;
+            background: #f0fdf4;
+            color: var(--sage-light);
+            border: 1px solid rgba(62, 146, 109, 0.2);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: var(--radius-pill);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* EMPTY LEDGER BLOCK STATE */
+        .empty-orders {
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-large);
+            border: 2px dashed rgba(31, 78, 57, 0.1);
+        }
+        
+        .empty-orders p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin: 0 0 16px 0;
+            font-weight: 500;
+        }
+        
+        .empty-orders a {
+            color: var(--earth-warm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+        }
+        
+        .empty-orders a:hover {
+            color: #be653a;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .back-link:hover {
+            color: var(--sage-primary);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Your Orders</h2>
+
+    <div class="orders-wrapper">
+        {% for order in orders %}
+        <div class="order">
+            <div class="order-details">
+                <h3>{{ order.medicine.name }}</h3>
+                <p>Quantity: <strong>{{ order.quantity }}</strong></p>
+            </div>
+            
+            <div class="status-zone">
+                <span class="status-pill">
+                    Delivered ✅
+                </span>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-orders">
+            <p>You have not placed any pharmacy orders yet.</p>
+            <a href="/">← Explore Pharmacy Hub Items</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'patient_dashboard' %}" class="back-link">← Return to Dashboard</a>
+</div>
+
+</body>
+</html>
